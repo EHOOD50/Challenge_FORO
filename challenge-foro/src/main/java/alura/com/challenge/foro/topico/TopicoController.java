@@ -1,9 +1,10 @@
 package alura.com.challenge.foro.topico;
 
-
-import jakarta.transaction.Transactional;
+import alura.com.challenge.foro.topico.DatosRegistroTopico;
+import alura.com.challenge.foro.topico.DatosRespuestaTopico;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,7 +16,6 @@ public class TopicoController {
     @Autowired
     private TopicoRepository repository;
 
-    // Registrar
     @PostMapping
     @Transactional
     public DatosRespuestaTopico registrar(@RequestBody @Valid DatosRegistroTopico datos) {
@@ -24,13 +24,11 @@ public class TopicoController {
         return new DatosRespuestaTopico(topico);
     }
 
-    // Listar
     @GetMapping
-    public List<DatosListaTopico> listar() {
-        return repository.findAll().stream().map(DatosListaTopico::new).toList();
+    public List<DatosRespuestaTopico> listar() {
+        return repository.findAll().stream().map(DatosRespuestaTopico::new).toList();
     }
 
-    // Actualizar
     @PutMapping
     @Transactional
     public DatosRespuestaTopico actualizar(@RequestBody @Valid DatosActualizarTopico datos) {
@@ -39,7 +37,6 @@ public class TopicoController {
         return new DatosRespuestaTopico(topico);
     }
 
-    // Eliminar
     @DeleteMapping("/{id}")
     @Transactional
     public void eliminar(@PathVariable Long id) {

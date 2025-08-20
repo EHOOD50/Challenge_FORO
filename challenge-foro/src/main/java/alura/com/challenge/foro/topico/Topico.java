@@ -1,17 +1,10 @@
 package alura.com.challenge.foro.topico;
 
 import jakarta.persistence.*;
-import lombok.*;
-
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "topicos")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(of = "id")
 public class Topico {
 
     @Id
@@ -22,14 +15,17 @@ public class Topico {
     private String mensaje;
 
     @Column(name = "fecha_creacion")
-    private LocalDateTime fechaCreacion = LocalDateTime.now();
+    private LocalDateTime fechaCreacion;
 
     @Column(name = "nombre_curso")
     private String nombreCurso;
 
+    public Topico() {}
+
     public Topico(DatosRegistroTopico datos) {
         this.titulo = datos.titulo();
         this.mensaje = datos.mensaje();
+        this.fechaCreacion = LocalDateTime.now();
         this.nombreCurso = datos.nombreCurso();
     }
 
@@ -38,4 +34,11 @@ public class Topico {
         if (datos.mensaje() != null) this.mensaje = datos.mensaje();
         if (datos.nombreCurso() != null) this.nombreCurso = datos.nombreCurso();
     }
+
+    // Getters
+    public Long getId() { return id; }
+    public String getTitulo() { return titulo; }
+    public String getMensaje() { return mensaje; }
+    public LocalDateTime getFechaCreacion() { return fechaCreacion; }
+    public String getNombreCurso() { return nombreCurso; }
 }
